@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4MİNOGLU Oyun İndirme Sitesi</title>
+<title>Oyun Sitesi</title>
 
 <style>
 body {
@@ -17,41 +17,8 @@ header {
     background: #1e293b;
     padding: 15px;
     text-align: center;
-    font-size: 20px;
 }
 
-.hero {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.hero h1 {
-    color: #38bdf8;
-}
-
-.search-box {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-}
-
-.search-box input {
-    width: 300px;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-}
-
-.search-box button {
-    margin-left: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    background: #38bdf8;
-    cursor: pointer;
-}
-
-/* Kartlar */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -63,13 +30,12 @@ header {
     background: #1e293b;
     padding: 10px;
     border-radius: 10px;
-    text-align: center;
+    cursor: pointer;
     transition: 0.3s;
 }
 
 .card:hover {
     transform: scale(1.05);
-    background: #334155;
 }
 
 .card img {
@@ -78,107 +44,56 @@ header {
     object-fit: cover;
     border-radius: 8px;
 }
-
-.download-btn {
-    margin-top: 10px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    background: #22c55e;
-    cursor: pointer;
-}
 </style>
 </head>
 
 <body>
 
 <header>
-🎮 4MİNOGLU Oyun İndirme Sitesi
+🎮 Oyunlar
 </header>
-
-<div class="hero">
-    <h1>Oyun veya Yapımcı Ara</h1>
-</div>
-
-<div class="search-box">
-    <input id="search" type="text" placeholder="innersloth, minecraft, gta...">
-    <button onclick="searchGame()">Ara</button>
-</div>
 
 <div id="results" class="container"></div>
 
 <script>
 const games = [
     {
+        id: "amongus",
         name: "Among Us",
         dev: "InnerSloth",
-        img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg"
+        img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg",
+        desc: "Arkadaşlarınla uzayda impostor’u bul!"
     },
     {
+        id: "henry",
         name: "Henry Stickmin Collection",
         dev: "InnerSloth",
-        img: "https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg"
+        img: "https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg",
+        desc: "Komik seçim tabanlı macera oyunu"
     },
     {
+        id: "minecraft",
         name: "Minecraft",
         dev: "Mojang",
-        img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png"
-    },
-    {
-        name: "GTA V",
-        dev: "Rockstar Games",
-        img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
-    },
-    {
-        name: "Valorant",
-        dev: "Riot Games",
-        img: "https://upload.wikimedia.org/wikipedia/en/3/30/Valorant_cover.jpg"
+        img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png",
+        desc: "Sonsuz blok dünyasında hayatta kal"
     }
 ];
 
-function searchGame() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let results = document.getElementById("results");
+let results = document.getElementById("results");
 
-    results.innerHTML = "";
+games.forEach(g => {
+    results.innerHTML += `
+        <div class="card" onclick="openGame('${g.id}')">
+            <img src="${g.img}">
+            <h3>${g.name}</h3>
+            <p>${g.dev}</p>
+        </div>
+    `;
+});
 
-    let filtered = games.filter(g =>
-        g.name.toLowerCase().includes(input) ||
-        g.dev.toLowerCase().includes(input)
-    );
-
-    if (filtered.length === 0) {
-        results.innerHTML = "<p style='text-align:center'>Sonuç bulunamadı</p>";
-        return;
-    }
-
-    filtered.forEach(g => {
-        results.innerHTML += `
-            <div class="card">
-                <img src="${g.img}" alt="${g.name}">
-                <h3>${g.name}</h3>
-                <p>${g.dev}</p>
-                <button class="download-btn" onclick="downloadGame('${g.name}')">
-                    İndir
-                </button>
-            </div>
-        `;
-    });
-}
-
-function downloadGame(gameName) {
-
-    if (gameName === "Among Us") {
-        alert("Dosya mevcut değil ❌");
-        return;
-    }
-
-    if (gameName === "Henry Stickmin Collection") {
-        window.location.href = "downloadGame.html";
-        return;
-    }
-
-    alert("Bu oyun için indirme yok ⚠️");
+function openGame(id) {
+    window.location.href = "game.html?id=" + id;
 }
 </script>
 
