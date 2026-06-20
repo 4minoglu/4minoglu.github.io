@@ -3,98 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oyun Sitesi</title>
+<title>4mınoglu</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #0f172a;
-    color: white;
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
 }
 
-header {
-    background: #1e293b;
-    padding: 15px;
-    text-align: center;
+header{
+background:#1e293b;
+padding:15px;
+text-align:center;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
+.search{
+display:flex;
+justify-content:center;
+margin:20px;
 }
 
-.card {
-    background: #1e293b;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
+.search input{
+padding:10px;
+width:300px;
+border:none;
+border-radius:8px;
 }
 
-.card:hover {
-    transform: scale(1.05);
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+padding:20px;
 }
 
-.card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
+.card{
+background:#1e293b;
+padding:10px;
+border-radius:10px;
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{transform:scale(1.05)}
+
+.card img{
+width:100%;
+height:120px;
+object-fit:cover;
+border-radius:8px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-🎮 Oyunlar
-</header>
+<header>🎮4mınoglu Oyun Mağazası</header>
 
-<div id="results" class="container"></div>
+<div class="search">
+<input id="search" placeholder="oyun ara...">
+</div>
+
+<div id="games" class="container"></div>
 
 <script>
-const games = [
-    {
-        id: "amongus",
-        name: "Among Us",
-        dev: "InnerSloth",
-        img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg",
-        desc: "Arkadaşlarınla uzayda impostor’u bul!"
-    },
-    {
-        id: "henry",
-        name: "Henry Stickmin Collection",
-        dev: "InnerSloth",
-        img: "https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg",
-        desc: "Komik seçim tabanlı macera oyunu"
-    },
-    {
-        id: "minecraft",
-        name: "Minecraft",
-        dev: "Mojang",
-        img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png",
-        desc: "Sonsuz blok dünyasında hayatta kal"
-    }
+const games=[
+{
+id:"amongus",
+name:"Among Us",
+dev:"InnerSloth",
+img:"https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg"
+},
+{
+id:"henry",
+name:"Henry Stickmin Collection",
+dev:"InnerSloth",
+img:"https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg"
+},
+{
+id:"minecraft",
+name:"Minecraft",
+dev:"Mojang",
+img:"https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png"
+}
 ];
 
-let results = document.getElementById("results");
+let box=document.getElementById("games");
 
-games.forEach(g => {
-    results.innerHTML += `
-        <div class="card" onclick="openGame('${g.id}')">
-            <img src="${g.img}">
-            <h3>${g.name}</h3>
-            <p>${g.dev}</p>
-        </div>
-    `;
+function render(list){
+box.innerHTML="";
+list.forEach(g=>{
+box.innerHTML+=`
+<div class="card" onclick="openGame('${g.id}')">
+<img src="${g.img}">
+<h3>${g.name}</h3>
+<p>${g.dev}</p>
+</div>`;
 });
-
-function openGame(id) {
-    window.location.href = "game.html?id=" + id;
 }
+
+function openGame(id){
+window.location.href="game.html?id="+id;
+}
+
+render(games);
+
+document.getElementById("search").addEventListener("input",e=>{
+let v=e.target.value.toLowerCase();
+render(games.filter(g=>
+g.name.toLowerCase().includes(v)||
+g.dev.toLowerCase().includes(v)
+));
+});
 </script>
 
 </body>
