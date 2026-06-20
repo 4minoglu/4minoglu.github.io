@@ -1,9 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-  <title>Benim Sitem</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyun Sitesi</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+/* Üst bar */
+header {
+    background: #1e293b;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ORTA YAZI */
+.center-text {
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.center-text h1 {
+    font-size: 40px;
+    color: #38bdf8;
+}
+
+/* Arama */
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.search-box input {
+    width: 300px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #38bdf8;
+    cursor: pointer;
+}
+
+/* Kartlar */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.card:hover {
+    background: #334155;
+    transform: scale(1.05);
+}
+</style>
 </head>
+
 <body>
-  <h1>Merhaba Dünya!</h1>
+
+<header>
+    <h1>🎮 Oyun Sitesi</h1>
+    <div>Menu</div>
+</header>
+
+<div class="search-box">
+    <input type="text" placeholder="Oyun ara...">
+    <button>Ara</button>
+</div>
+
+<div class="center-text">
+    <h1>4MİNOGLU Türk Oyun İndirme Sitesi</h1>
+</div>
+
+<div class="container">
+    <div class="card">Minecraft</div>
+    <div class="card">GTA V</div>
+    <div class="card">Valorant</div>
+    <div class="card">CS:GO</div>
+</div>
+
 </body>
 </html>
