@@ -13,7 +13,6 @@ body {
     color: white;
 }
 
-/* Üst bar */
 header {
     background: #1e293b;
     padding: 15px;
@@ -21,7 +20,6 @@ header {
     font-size: 20px;
 }
 
-/* Başlık */
 .hero {
     text-align: center;
     margin-top: 30px;
@@ -31,7 +29,6 @@ header {
     color: #38bdf8;
 }
 
-/* Arama */
 .search-box {
     display: flex;
     justify-content: center;
@@ -64,7 +61,7 @@ header {
 
 .card {
     background: #1e293b;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
     text-align: center;
     transition: 0.3s;
@@ -73,6 +70,13 @@ header {
 .card:hover {
     transform: scale(1.05);
     background: #334155;
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .download-btn {
@@ -97,7 +101,7 @@ header {
 </div>
 
 <div class="search-box">
-    <input id="search" type="text" placeholder="örnek: innersloth, minecraft, gta">
+    <input id="search" type="text" placeholder="innersloth, minecraft, gta...">
     <button onclick="searchGame()">Ara</button>
 </div>
 
@@ -105,12 +109,31 @@ header {
 
 <script>
 const games = [
-    { name: "Among Us", dev: "InnerSloth" },
-    { name: "Henry Stickmin Collection", dev: "InnerSloth" },
-    { name: "Minecraft", dev: "Mojang" },
-    { name: "GTA V", dev: "Rockstar Games" },
-    { name: "Valorant", dev: "Riot Games" },
-    { name: "CS:GO", dev: "Valve" }
+    {
+        name: "Among Us",
+        dev: "InnerSloth",
+        img: "https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg"
+    },
+    {
+        name: "Henry Stickmin Collection",
+        dev: "InnerSloth",
+        img: "https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg"
+    },
+    {
+        name: "Minecraft",
+        dev: "Mojang",
+        img: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png"
+    },
+    {
+        name: "GTA V",
+        dev: "Rockstar Games",
+        img: "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png"
+    },
+    {
+        name: "Valorant",
+        dev: "Riot Games",
+        img: "https://upload.wikimedia.org/wikipedia/en/3/30/Valorant_cover.jpg"
+    }
 ];
 
 function searchGame() {
@@ -132,8 +155,9 @@ function searchGame() {
     filtered.forEach(g => {
         results.innerHTML += `
             <div class="card">
+                <img src="${g.img}" alt="${g.name}">
                 <h3>${g.name}</h3>
-                <p>Yapımcı: ${g.dev}</p>
+                <p>${g.dev}</p>
                 <button class="download-btn" onclick="downloadGame('${g.name}')">
                     İndir
                 </button>
@@ -145,7 +169,7 @@ function searchGame() {
 function downloadGame(gameName) {
 
     if (gameName === "Among Us") {
-        alert("Dosya mevcut değil maalesef");
+        alert("Dosya mevcut değil ❌");
         return;
     }
 
@@ -154,7 +178,7 @@ function downloadGame(gameName) {
         return;
     }
 
-    alert("Bu oyun için indirme yok ⚠️(lütfen aileme zarar verme)");
+    alert("Bu oyun için indirme yok ⚠️");
 }
 </script>
 
