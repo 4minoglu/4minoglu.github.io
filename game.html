@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyun Detay</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+padding:20px;
+}
+
+img{
+width:100%;
+border-radius:10px;
+}
+
+.comment{
+background:#1e293b;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+}
+
+button{
+margin-top:5px;
+padding:6px 10px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+.like{background:#38bdf8}
+.reply{background:#f59e0b}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="name"></h1>
+<img id="img">
+<p id="dev"></p>
+
+<hr>
+
+<h2>Yorumlar</h2>
+
+<div id="comments"></div>
+
+<input id="input" placeholder="yorum yaz">
+<button onclick="addComment()">Gönder</button>
+
+</div>
+
+<script>
+
+const data={
+amongus:{
+name:"Among Us",
+dev:"InnerSloth",
+img:"https://upload.wikimedia.org/wikipedia/en/9/9a/Among_Us_cover_art.jpg"
+},
+henry:{
+name:"Henry Stickmin Collection",
+dev:"InnerSloth",
+img:"https://upload.wikimedia.org/wikipedia/en/3/3b/The_Henry_Stickmin_Collection.jpg"
+},
+minecraft:{
+name:"Minecraft",
+dev:"Mojang",
+img:"https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png"
+}
+};
+
+let id=new URLSearchParams(location.search).get("id");
+let game=data[id];
+
+document.getElementById("name").innerText=game.name;
+document.getElementById("dev").innerText=game.dev;
+document.getElementById("img").src=game.img;
+
+let comments=JSON.parse(localStorage.getItem(id)||"[]");
+
+function save(){
+localStorage.setItem(id,JSON.stringify(comments));
+}
+
+function addComment(){
+let user=localStorage.getItem("user")||"Anonim";
+
+comments.push({
+user:user,
+text:input.value,
+likes:0,
+replies:[]
+});
+
+input.value="";
+save();
+render();
+}
+
+function like(i){
+comments[i].likes++;
+save();
+render();
+}
+
+function reply(i){
+let t=prompt("yanıt:");
+comments[i].replies.push(t);
+save();
+render();
+}
+
+function render(){
+let box=document.getElementById("comments");
+box.innerHTML="";
+
+comments.forEach((c,i)=>{
+box.innerHTML+=`
+<div class="comment">
+<b>${c.user}</b><br>
+${c.text}<br>
+
+👍 ${c.likes}
+<button class="like" onclick="like(${i})">Like</button>
+<button class="reply" onclick="reply(${i})">Reply</button>
+
+${c.replies.map(r=>"<div>↳ "+r+"</div>").join("")}
+</div>`;
+});
+}
+
+render();
+
+</script>
+
+</body>
+</html>
