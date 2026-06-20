@@ -31,6 +31,13 @@ margin-top:10px;
 border-radius:8px;
 }
 
+input{
+padding:8px;
+border-radius:6px;
+border:none;
+width:70%;
+}
+
 button{
 margin-top:5px;
 padding:6px 10px;
@@ -90,6 +97,10 @@ document.getElementById("name").innerText=game.name;
 document.getElementById("dev").innerText=game.dev;
 document.getElementById("img").src=game.img;
 
+/* USER */
+let user=localStorage.getItem("user");
+
+/* COMMENTS */
 let comments=JSON.parse(localStorage.getItem(id)||"[]");
 
 function save(){
@@ -97,7 +108,10 @@ localStorage.setItem(id,JSON.stringify(comments));
 }
 
 function addComment(){
-let user=localStorage.getItem("user")||"Anonim";
+if(!user){
+alert("giriş yap");
+return;
+}
 
 comments.push({
 user:user,
@@ -118,8 +132,8 @@ render();
 }
 
 function reply(i){
-let t=prompt("yanıt:");
-comments[i].replies.push(t);
+let t=prompt("yanıt yaz:");
+comments[i].replies.push(user+": "+t);
 save();
 render();
 }
@@ -136,7 +150,7 @@ ${c.text}<br>
 
 👍 ${c.likes}
 <button class="like" onclick="like(${i})">Like</button>
-<button class="reply" onclick="reply(${i})">Yanıtla</button>
+<button class="reply" onclick="reply(${i})">Reply</button>
 
 ${c.replies.map(r=>"<div>↳ "+r+"</div>").join("")}
 </div>`;
